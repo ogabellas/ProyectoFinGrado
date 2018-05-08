@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="oscar.gabella.sutil.dao.DaoEmpleado">
+	<cache />
+	<select id="getEmpleados" resultType="oscar.gabella.sutil.dto.Empleado">
+		SELECT * FROM empleado;
+	</select>
+
+	<select id="getEmpleado" resultType="oscar.gabella.sutil.dto.Empleado">
+		SELECT * FROM empleado
+		WHERE dni=#{dni}
+		AND contrasena =#{contrasena}
+	</select>
+
+	<insert id="insertarCliente"
+		parameterType="oscar.gabella.sutil.dto.Cliente">
+		INSERT INTO cliente
+		(dni, nombre, correo, direccion, telefono, activo) VALUES
+		(#{dni},#{nombre},#{correo},#{direccion},#{telefono},1);
+	</insert>
+	
+	<insert id="insertarLinea"
+		parameterType="oscar.gabella.sutil.dto.LineaCompra">
+		INSERT INTO lineacompra
+		(codProducto, cantidad, precio, codCompra, total) VALUES
+		(#{codProducto},#{cantidad},#{precio},#{codCompra},#{total});
+	</insert>
+
+	<insert id="insertCompra" parameterType="oscar.gabella.sutil.dto.Compra">
+		INSERT INTO compra
+		(fecha, codEmpleado, codCliente, total) VALUES
+		(curdate(),#{codEmpleado},#{codCliente},#{total});
+	</insert>
+	
+	<update id="modificarProducto" parameterType="oscar.gabella.sutil.dto.Producto">
+		UPDATE producto SET codProducto=#{codProducto},nombre=#{nombre},stock=#{stock},precio=#{precio},provedor=#{provedor} WHERE codProducto=#{codProducto};
+	</update>
+	
+	<update id="modificarCompra" parameterType="oscar.gabella.sutil.dto.Compra">
+		UPDATE compra SET codCompra=#{codCompra},fecha=#{fecha},codEmpleado=#{codEmpleado},codCliente=#{codCliente},total=#{total} WHERE codCompra=#{codCompra}
+	</update>
+	
+	<update id="modificarLinea" parameterType="oscar.gabella.sutil.dto.LineaCompra">
+		UPDATE lineacompra SET codLinea=#{codLinea},codProducto=#{codProducto},cantidad=#{cantidad},precio=#{precio},codCompra=#{codCompra},total=#{total} WHERE codLinea=#{codLinea}	
+		</update>
+	
+	<select id="getCompra" resultType="oscar.gabella.sutil.dto.Compra">
+		SELECT * FROM compra where codCompra=#{codCompra};
+	</select>
+	<select id="getProductos" resultType="oscar.gabella.sutil.dto.Producto">
+		SELECT * FROM producto;
+	</select>
+	<select id="getProducto" resultType="oscar.gabella.sutil.dto.Producto">
+		SELECT * FROM producto WHERE codProducto=#{codProducto};
+	</select>
+	<select id="getUltimaCompra" resultType="oscar.gabella.sutil.dto.Compra">
+		SELECT * FROM compra order by codCompra desc limit 1;
+	</select>
+	<select id="buscarDNI" resultType="oscar.gabella.sutil.dto.Cliente">
+		SELECT * FROM cliente where codCliente=#{codCliente};
+	</select>
+	
+	<select id="buscarPedido" resultType="oscar.gabella.sutil.dto.LineaCompra">
+		SELECT * FROM lineacompra WHERE codCompra=#{codCompra};
+	</select>
+	
+	<select id="buscarLinea" resultType="oscar.gabella.sutil.dto.LineaCompra">
+		SELECT * FROM lineacompra WHERE codLinea=#{codLinea};
+	</select>
+	
+	<insert id="insertPedido" parameterType="oscar.gabella.sutil.dto.Pedido">
+		INSERT INTO pedido(codProducto, cantidad, fecha, estado, solicitado) VALUES (#{codProducto},#{cantidad},CURRENT_DATE,0,#{solicitado})
+	</insert>
+
+</mapper>
