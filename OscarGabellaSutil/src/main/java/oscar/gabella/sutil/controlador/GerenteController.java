@@ -47,7 +47,6 @@ public class GerenteController {
 		System.out.println("Inicio aprobar Pedido GET");
 		
 		return"gerente";
-		
 	}
 
 }
