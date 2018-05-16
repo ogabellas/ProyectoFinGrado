@@ -122,12 +122,12 @@
 					</c:if>
 <!-------------     si es devolucion    --------------->
 					<c:if test="${pantalla=='devolucion'}">
-						<h1>Devolucion de productos</h1>
+						<h1>Devolución de productos</h1>
 						<form action="devolucion" method="post" id="formular">
 							<fieldset id="formulario">
-							<legend> Pedido a buscar</legend>
+							<legend> Venta a buscar</legend>
 								<div class="inputs">
-									<label>PEDIDO: </label><input type="number" name="pedido" size="25"
+									<label>VENTA: </label><input type="number" name="pedido" size="25"
 										autofocus required><br>
 								</div>
 							<center><button name="submit" value="submit" type="submit"  id="enviarValor">Buscar Producto</button></center><br>							
@@ -138,7 +138,7 @@
 						</div>
 						<form action="pedidoDevolver" method="post" id="formulari">
 							<fieldset id="formulario">
-							<legend> Pedido a devolver</legend>
+							<legend> Productos a devolver</legend>
 							<div id="pedidosMostrar">
 								<c:forEach items="${lineasDevolver}" var="linea">
 								<div class="inputs">

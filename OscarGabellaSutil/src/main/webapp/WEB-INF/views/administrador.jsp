@@ -23,10 +23,10 @@
 							<img id="imagen" alt="logo"
 								src="<c:url value="/resources/imagenes/logo.png" />"
 								width="100px">
-							<li id="enlaceVenta"><a href="empleadoAlta">Alta empleado</a></li>
-							<li><a href="empleadoBaja">Baja empleado</a></li>
-							<li><a href="balance">Balance mensual</a></li>
-							<li><a href="productoEstrella">Productos estrella</a></li>
+							<li id="enlaceVenta"><a href="aprobarPedido">Aprobar pedido</a></li>
+							<li><a href="recibirPedido">Recibir pedido</a></li>
+							<li><a href="productoAlta">Producto nuevo</a></li>
+							<li><a href="provedorAlta">Provedor nuevo</a></li>
 							<li><a href="salir">Salir</a></li>
 						</ul>
 						</nav>
@@ -39,7 +39,7 @@
 			<tr>
 				<td id="cuerpo">
 <!-------------     cuerpo de la pagina    --------------->
-Administrador
+Gerente
 
 				</td>
 			</tr>

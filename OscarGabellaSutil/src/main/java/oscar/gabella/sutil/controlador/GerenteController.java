@@ -42,11 +42,12 @@ public class GerenteController {
 	
 	private String accion;
 	
-	@RequestMapping(value = "/aprobarPedido", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/empleadoAlta", method = RequestMethod.GET)
 	public String aprobarPedidoGET( Model model) {
 		System.out.println("Inicio aprobar Pedido GET");
 		
-		return"gerente";
-	}
+		return"administradosJS";
+	}*/
+	
 
 }
