@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+body {
+	width: 100%;
+	background: beige;
+}
+
+#todo {
+	width: 1080px;
+	margin: auto;
+	min-height: 600px;
+	color: #86584e;
+}
+
+#menu {
+	width: 750px;
+	margin: 1px;
+	background: #E1E0E0;
+	border: 1px solid gray;
+	margin: auto;
+	float: left;
+}
+
+#menu li {
+	list-style: none;
+	position: relative;
+	/* importante, para que el submenu tome la posición correcta*/
+	display: inline-block;
+	padding: 5px;
+}
+
+#menu li a {
+	color: black;
+	text-decoration: none;
+	/*padding: 5px;*/
+	background: #E1E0E0;
+	/*width:220px;*/
+}
+
+#menu li a:hover {
+	color: #EEEAD6;
+	background: #745E59;
+}
+
+#imagen {
+	margin-left: 1px;
+	margin-right: 5px;
+}
+#usuario {
+	width: 200px;
+	float: left;
+	padding: 8px;
+	margin-top: 12px;
+}
+#superior {
+	width: 1040px;
+}
+
+#cuerpo {
+		width: 1020px;
+}
+div label {
+	width: 35%;
+	float: left;
+}
+#formulario {
+	width: 400px;
+}
+#formular {
+	width: 500px;
+	float: left;
+}
+#imagenAlta {
+	width: 400px;
+	float: left;
+}
+button{
+	width: 150px;
+	height: 40px;
+	margin: 5px;
+	background : #86584e;
+	padding: 3px;
+	color: white;
+}
+.boton{
+	width: 150px;
+	height: 30px;
+	margin: 5px;
+	background : #86584e;
+	padding: 3px;
+	color: white;
+	border: 1px solid black;
+	border-radius: 2px;
+	vertical-align: middle;
+	text-align: center;
+
+}
+.boton:hover{
+	background : white;
+	color: #86584e;
+}
+button:hover{
+	background : white;
+	color: #86584e;
+}
+.inputs{
+	padding: 3px;
+}
+#desplegable{
+		width: 177px;
+}
+.imagenes{
+	margin-left: 1px;
+	margin-right: 5px;
+
+}
+.imagenesInternas{
+	width: 250px;
+	float: left;
+}
+.tabla td{
+	text-align: center;
+	vertical-align: middle;
+}
+#formularCompra {
+	width: 500px;
+	float: left;
+}
+#formularCliente {
+	width: 300px;
+	float: left;
+}
+#listaProd {
+	width: 600px;
+	float: left;
+}
+.imagenesInternas{
+	width: 300px;
+	float: left;
+}
+#mensajeCompra{
+	clear : both;
+	
+	width: 95%;
+}
+#formulari{
+	float: inherit;
+}
+#oculto{
+	display: none;
+}
+ol, ul {
+    list-style: none;
+    height: 40px !important;
+    margin-top: 10px !important;
+}
+

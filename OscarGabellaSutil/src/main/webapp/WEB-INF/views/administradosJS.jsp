@@ -13,7 +13,7 @@
 	src="<c:url value="/resources/js/ext-js/adapter/ext/ext-base.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/ext-js/ext-all-debug.js" />"></script>
-<link href="<c:url value="/resources/css/cajero.css" />"
+<link href="<c:url value="/resources/css/administrador.css" />"
 	rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -51,9 +51,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td><div id="componentes"></div></td>
+				<td><br><div id="componentes"></div></td>
 			</tr>
 		</table>
+		
 	</div>
 
 

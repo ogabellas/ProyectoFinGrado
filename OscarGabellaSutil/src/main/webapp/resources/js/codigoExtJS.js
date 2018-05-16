@@ -19,6 +19,7 @@ Ext.onReady(function() {
 		//		autoWidth		: true,
 		style : 'margin: 3 auto;',
 		frame : true,
+//		cls				: 'insa-tablelayout',
 		collapsible : false,
 		collapsed : false,
 		layout : 'table',
