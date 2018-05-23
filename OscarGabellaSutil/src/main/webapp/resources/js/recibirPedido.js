@@ -278,7 +278,8 @@ function handlerBuscar() {
 	 var pedidos= Ext.util.JSON.decode(response.responseText);
 	 Ext.each(pedidos, function(pedido) {
 		 var codPedido=pedido.codPedido;
-		 var codProducto=pedido.codProducto;
+//		 var codProducto=pedido.codProducto;
+		 var codProducto=pedido.nombreProducto;
 		 var cantidad=pedido.cantidad;
 		 arrayPedidos.push({
 				'Id' : codPedido,
@@ -433,17 +434,25 @@ function ventanaEditar(seleccion) {
 			                	colspan	: 1,
 			                	handler	: function () {
 			                		var datosEnviar=[];
-		                			datosEnviar.push (document.getElementById('pedido').value);
-		                			datosEnviar.push (document.getElementById('Cantidad').value);
-			                		Ext.Ajax.request({
-			                			url		: String.format('http://localhost:8080/Tienda/modificarPedido'),
-			                			params	: {datos: datosEnviar},
-			                			method	: 'POST',
-			                			success	: function(response){
-			                				win.close();
-			                				handlerBuscar();
-			                			}
-			                		});
+			                		var pedidos = seleccion.data.cantidad;
+			                		if(document.getElementById('Cantidad').value>pedidos){
+			                			alert("Cantidad mayor que la pedida, no se puede modificar");
+			                		} else if(document.getElementById('Cantidad').value==pedidos){
+			                			alert("Apruebe el pedido, no lo deje a 0");
+			                		}else {
+			                			datosEnviar.push (document.getElementById('pedido').value);
+			                			datosEnviar.push (document.getElementById('Cantidad').value);
+			                			
+			                			Ext.Ajax.request({
+			                				url		: String.format('http://localhost:8080/Tienda/modificarPedidoRecibir'),
+			                				params	: {datos: datosEnviar},
+			                				method	: 'POST',
+			                				success	: function(response){
+			                					win.close();
+			                					handlerBuscar();
+			                				}
+			                			});
+			                		}
 			                	}
 				            }
 						]

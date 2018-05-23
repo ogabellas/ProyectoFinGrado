@@ -13,6 +13,7 @@ public class Pedido implements Serializable{
 	private int aprobado;
 	private int recibido;
 	private Date fecha;
+	private String nombreProducto;
 	public Pedido() {
 		super();
 		fecha = new Date();
@@ -64,6 +65,12 @@ public class Pedido implements Serializable{
 	}
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
+	}
+	public String getNombreProducto() {
+		return nombreProducto;
+	}
+	public void setNombreProducto(String nombreProducto) {
+		this.nombreProducto = nombreProducto;
 	}
 	
 	

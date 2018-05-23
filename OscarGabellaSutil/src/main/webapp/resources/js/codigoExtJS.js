@@ -278,7 +278,8 @@ function handlerBuscar() {
 	 var pedidos= Ext.util.JSON.decode(response.responseText);
 	 Ext.each(pedidos, function(pedido) {
 		 var codPedido=pedido.codPedido;
-		 var codProducto=pedido.codProducto;
+//		 var codProducto=pedido.codProducto;
+		 var codProducto=pedido.nombreProducto;
 		 var cantidad=pedido.cantidad;
 		 arrayPedidos.push({
 				'Id' : codPedido,

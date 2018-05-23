@@ -125,6 +125,29 @@ public class AdministradorController {
 
 	}
 	
+	@RequestMapping(value = "/modificarPedidoRecibir", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxmodificarPedidoRecibir( Model model,  @RequestParam("datos") String[] datos) {
+		logger.info("modificarPedido Recibir");
+		
+		Pedido pedido = new Pedido();
+		Pedido pedidoViejo = new Pedido();
+		pedido.setCodPedido(Integer.parseInt(datos[0]));
+		pedido.setCantidad(Integer.parseInt(datos[1]));
+		//Se recupera el pedido original
+		pedidoViejo=servicioEmpleado.getDaoEmpleado().consultarPedido(pedido).get(0);
+		int aumentarStock = pedidoViejo.getCantidad()-pedido.getCantidad();
+		//Se modifica el pedido
+		servicioEmpleado.modificarCantidadPedido(pedido);
+		//Se aumenta el stock con los productos recibidos
+		Producto p = new Producto();
+		p.setCodProducto(pedidoViejo.getCodProducto());
+		p=servicioEmpleado.recuperarProducto(p);
+		p.setStock(p.getStock()+aumentarStock);
+		servicioEmpleado.getDaoEmpleado().modificarStockProducto(p);
+		
+	}
+	
 	@RequestMapping(value = "/aprobarPedidos", method = RequestMethod.POST)
 	@ResponseBody
 	public void ajaxAprobarPedidos( Model model,  @RequestParam("id") String ids, HttpSession sesion) {

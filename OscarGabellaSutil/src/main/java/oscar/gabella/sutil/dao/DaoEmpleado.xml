@@ -135,5 +135,11 @@
 		WHERE dni=#{dni}
 	</delete>
 	
+	<update id="modificarStockProducto" parameterType="oscar.gabella.sutil.dto.Producto">
+		UPDATE producto SET
+		stock=#{stock} 
+		WHERE codProducto=#{codProducto}
+	</update>
+	
 
 </mapper>

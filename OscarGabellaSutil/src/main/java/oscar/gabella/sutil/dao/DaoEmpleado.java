@@ -68,5 +68,7 @@ public interface DaoEmpleado {
 	
 	public void eliminarEmpleado(Empleado empleado);
 	
+	public void modificarStockProducto(Producto producto);
+	
 	
 }

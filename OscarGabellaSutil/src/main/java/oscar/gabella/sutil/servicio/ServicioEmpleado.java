@@ -127,6 +127,12 @@ public class ServicioEmpleado {
 		p.setEstado(tipo);
 		List <Pedido> pedidos = new ArrayList<Pedido>();
 		pedidos = daoEmpleado.recuperarPedidos(p);
+		for(Pedido pedido:pedidos) {
+			Producto producto = new Producto();
+			producto.setCodProducto(pedido.getCodProducto());
+			producto = daoEmpleado.getProducto(producto).get(0);
+			pedido.setNombreProducto(producto.getNombre());
+		}
 		return pedidos;
 	}
 	public void modificarPedidos(int tipo,String[] pedidos, int empleado){
