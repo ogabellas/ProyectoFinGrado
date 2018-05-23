@@ -270,7 +270,7 @@ function agregar() {
 function handlerBuscar() {
 
 	Ext.Ajax.request({
-	 url		: String.format('http://localhost:8080/Tienda/buscarPedidosAprobar'),
+	 url		: String.format('http://localhost:8080/Tienda/buscarPedidosRecibir'),
 	 method	: 'POST',
 	 timeout : 220000,
 	 success	: function(response){
@@ -325,8 +325,8 @@ function botones() {
 		buttonAlign : 'center',
 		buttons : [ {
 			xtype : 'button',
-			text : "Aceptar",
-			tooltip : "Aceptar",
+			text : "Recibir",
+			tooltip : "Recibir",
 			iconCls : 'icoRechazar',
 			width : 100,
 			handler : function() {
@@ -341,48 +341,18 @@ function botones() {
 					 });
 					 //Se aprueban los pedidos
 						Ext.Ajax.request({
-							 url		: String.format('http://localhost:8080/Tienda/aprobarPedidos'),
+							 url		: String.format('http://localhost:8080/Tienda/recibirPedidos'),
 							 params		: {id: enviar},
 							 method		: 'POST',
 							 timeout	: 220000,
 							 success	: function(response){
 								 handlerBuscar();
-								 alert("Pedidos aprobados");
+								 alert("Pedidos recibidos");
 							 }
 						});
 					 
 				}
 				
-			}
-		}, {
-			xtype : 'button',
-			text : "Rechazar",
-			tooltip : "Rechazar",
-			width : 100,
-			iconCls : 'icoSave',
-			handler : function() {
-				//se comprueban los pedidos seleccionados
-				var seleccionados = Ext.getCmp('gridPedidos').getSelectionModel().selections.items;
-				if(seleccionados.length==0){
-					alert("Seleccione pedidos");
-				} else {
-					 var enviar="";
-					 Ext.each(seleccionados, function(seleccion) {
-						 enviar=enviar+seleccion.data.Id+";";
-					 });
-					 //Se aprueban los pedidos
-						Ext.Ajax.request({
-							 url		: String.format('http://localhost:8080/Tienda/rechazarPedidos'),
-							 params		: {id: enviar},
-							 method		: 'POST',
-							 timeout	: 220000,
-							 success	: function(response){
-								 handlerBuscar();
-								 alert("Pedidos rechazados");
-							 }
-						});
-					 
-				}
 			}
 		} ]
 	});
@@ -486,7 +456,6 @@ function ventanaEditar(seleccion) {
 	    border		: false,
 	    resizable	: false,
 	    constrain	: true,
-	    background:"red",
 		closeAction : 'close'
 
 	});	

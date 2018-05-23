@@ -21,7 +21,7 @@
 <script type="text/javascript"
 	src="<c:url value="/resources/js/cajero.js" />"></script>
 <script type="text/javascript"
-	src="<c:url value="/resources/js/codigoExtJS.js" />"></script>
+	src="<c:url value="/resources/js/recibirPedido.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/ext-js/ux-all.js" />"></script>
 

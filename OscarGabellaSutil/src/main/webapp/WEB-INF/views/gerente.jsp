@@ -39,7 +39,77 @@
 			<tr>
 				<td id="cuerpo">
 <!-------------     cuerpo de la pagina    --------------->
-Administrador
+<!-------------     si es alta de clientes    ---------------> 
+					<c:if
+						test="${pantalla=='empleadoAlta'}">
+						<h1>Alta de empleados</h1>
+						<form action="altaEmpleado" method="post" id="formular">
+							<fieldset id="formulario">
+								<legend> Empleado a registrar </legend>
+								<div class="inputs">
+									<label>DNI: </label><input id="dni" type="number"
+										pattern="[0-9]{8}" name="dni" maxlength="8"
+										placeholder="DNI sin letra" max="99999999" autofocus required><br>
+								</div>
+								<div class="inputs">
+									<label>Nombre: </label><input type="text" name="nombre"
+										size="25" required><br>
+								</div>
+								<div class="inputs">
+									<label>nomina: </label><input type="number" pattern="[0-9]{4}"
+										name="nomina" size="25"><br>
+								</div>
+								<div class="inputs">
+									<label>Contraseña: </label><input type="password" name="pass"
+										size="25" required><br>
+								</div>
+								<div class="inputs">
+									<label>Cargo: </label> 
+									<select name="cargo" id="desplegable">
+											<option name="op" value="0">Cajero</option>
+											<option name="op" value="1">Administrador</option>
+											<option name="op" value="2">Gerente</option>
+									</select>
+								</div>
+							</fieldset>
+							<button name="submit" value="submit" type="submit">Alta
+								Empleado</button>
+							<button name="reset" value="reset" type="reset">Borrar</button>
+						</form>
+						<div id="imagenAlta">
+							<img id="imagen" alt="logo"
+								src="<c:url value="/resources/imagenes/altaCliente.png" />"
+								width="250px">
+						</div>
+					</c:if>
+<!-------------     si es baja de clientes    ---------------> 
+					<c:if
+						test="${pantalla=='empleadoBaja'}">
+						<h1>Baja de empleados</h1>
+						<form action="bajaEmpleado" method="post" id="formular">
+							<fieldset id="formulario">
+								<legend> Empleado a despedir </legend>
+								<div class="inputs">
+									<label>Producto: </label> 
+									<select name="empleadoBaja" id="desplegable">
+										<c:forEach items="${empleadosExistentes }" var="emple">
+											<option name="op" value="<c:out value="${emple.getDni()}"></c:out>"><c:out
+													value="${emple.getNombre()}"></c:out></option>
+										</c:forEach>
+
+									</select>
+								</div>
+							</fieldset>
+							<button name="submit" value="submit" type="submit">Baja
+								Empleado</button>
+							<button name="reset" value="reset" type="reset">Borrar</button>
+						</form>
+						<div id="imagenAlta">
+							<img id="imagen" alt="logo"
+								src="<c:url value="/resources/imagenes/altaCliente.png" />"
+								width="250px">
+						</div>
+					</c:if>
 
 				</td>
 			</tr>

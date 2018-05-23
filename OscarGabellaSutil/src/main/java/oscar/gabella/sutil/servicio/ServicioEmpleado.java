@@ -11,9 +11,12 @@ import org.springframework.stereotype.Repository;
 import oscar.gabella.sutil.dao.DaoEmpleado;
 import oscar.gabella.sutil.dto.Cliente;
 import oscar.gabella.sutil.dto.Compra;
+import oscar.gabella.sutil.dto.Empleado;
 import oscar.gabella.sutil.dto.EmpleadoSesion;
 import oscar.gabella.sutil.dto.LineaCompra;
+import oscar.gabella.sutil.dto.Pedido;
 import oscar.gabella.sutil.dto.Producto;
+import oscar.gabella.sutil.dto.Proveedor;
 
 public class ServicioEmpleado {
 
@@ -119,6 +122,75 @@ public class ServicioEmpleado {
 		compra = daoEmpleado.getCompra(compra);
 		return compra;
 	}
+	public List<Pedido> buscarPedidos(int tipo){
+		Pedido p = new Pedido();
+		p.setEstado(tipo);
+		List <Pedido> pedidos = new ArrayList<Pedido>();
+		pedidos = daoEmpleado.recuperarPedidos(p);
+		return pedidos;
+	}
+	public void modificarPedidos(int tipo,String[] pedidos, int empleado){
+		
+		for (int i = 0; i < pedidos.length; i++) {
+			Pedido p = new Pedido();
+			p.setEstado(tipo);
+			p.setCodPedido(Integer.parseInt(pedidos[i]));
+			p.setAprobado(empleado);
+			daoEmpleado.modificarPedido(p);
+		}
+	}
 	
+	public void modificarCantidadPedido(Pedido pedido) {
+		daoEmpleado.modificarCantidadPedido(pedido);
+	}
+	
+	public void recibirPedido(EmpleadoSesion empleadoSesion, String [] pedidos) {
+		
+		//Se recorren todos los pedidos enviados
+		for (int i = 0; i < pedidos.length; i++) {
+			//se recupera el pedido completo
+			Pedido pedido = new Pedido();
+			pedido.setCodPedido(Integer.parseInt(pedidos[i]));
+			pedido = daoEmpleado.consultarPedido(pedido).get(0);
+			//se modifica el pedido
+			pedido.setRecibido(empleadoSesion.getEmpleado().getCodEmpleado());
+			daoEmpleado.recibirPedido(pedido);
+			//Se modifica el stock del producto
+			Producto producto = new Producto();
+			producto.setCodProducto(pedido.getCodProducto());
+			producto = daoEmpleado.getProducto(producto).get(0);
+			producto.setStock(producto.getStock()+pedido.getCantidad());
+			daoEmpleado.modificarProducto(producto);
+		}
+		
+	}
+	
+	public ArrayList<Proveedor> getProveedores(){
+		List <Proveedor> provedores = new ArrayList<Proveedor>();
+		provedores=daoEmpleado.getProveedores();
+		return (ArrayList<Proveedor>) provedores;
+	}
+	
+	public void insertarProducto(Producto producto) {
+		daoEmpleado.insertarProducto(producto);
+	}
+	
+	public void insertarProveedor(Proveedor proveedor) {
+		daoEmpleado.insertarProveedor(proveedor);
+	}
+	
+	public boolean empleadoExiste(Empleado empleado) {
+		boolean existe=false;
+		List<Empleado> empleados = new ArrayList<Empleado>();
+		empleados = daoEmpleado.getEmpleadoDNI(empleado);
+		if(null!=empleados&&empleados.size()!=0) {
+			existe=true;
+		}
+		return existe;
+	}
+	
+	public void insertarEmpleado(Empleado empleado) {
+		daoEmpleado.insertarEmpleado(empleado);
+	}
 	
 }

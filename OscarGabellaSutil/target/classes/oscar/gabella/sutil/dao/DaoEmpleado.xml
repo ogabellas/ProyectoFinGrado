@@ -69,9 +69,71 @@
 	<select id="buscarLinea" resultType="oscar.gabella.sutil.dto.LineaCompra">
 		SELECT * FROM lineacompra WHERE codLinea=#{codLinea};
 	</select>
-	
+	<select id="recuperarPedidos" resultType="oscar.gabella.sutil.dto.Pedido">
+		SELECT * FROM pedido WHERE estado=#{estado};
+	</select>
+	<select id="consultarPedido" resultType="oscar.gabella.sutil.dto.Pedido">
+		SELECT * FROM pedido WHERE codPedido=#{codPedido};
+	</select>
+
 	<insert id="insertPedido" parameterType="oscar.gabella.sutil.dto.Pedido">
-		INSERT INTO pedido(codProducto, cantidad, fecha, estado, solicitado) VALUES (#{codProducto},#{cantidad},CURRENT_DATE,0,#{solicitado})
+		INSERT INTO
+		pedido(codProducto, cantidad, fecha, estado, solicitado) VALUES
+		(#{codProducto},#{cantidad},CURRENT_DATE,0,#{solicitado})
 	</insert>
+
+	<update id="modificarPedido" parameterType="oscar.gabella.sutil.dto.Pedido">
+		UPDATE pedido SET
+		estado=#{estado},aprobado=#{aprobado} 
+		WHERE codPedido=#{codPedido}
+	</update>
+	
+	<update id="recibirPedido" parameterType="oscar.gabella.sutil.dto.Pedido">
+		UPDATE pedido SET
+		estado=3,recibido=#{recibido} 
+		WHERE codPedido=#{codPedido}
+	</update>
+	
+	<update id="modificarCantidadPedido" parameterType="oscar.gabella.sutil.dto.Pedido">
+		UPDATE pedido SET
+		cantidad=#{cantidad} 
+		WHERE codPedido=#{codPedido}
+	</update>
+
+	<select id="getProveedores" resultType="oscar.gabella.sutil.dto.Proveedor">
+	SELECT * FROM proveedor
+	</select>
+	
+	<insert id="insertarProducto"
+		parameterType="oscar.gabella.sutil.dto.Producto">
+		INSERT INTO producto
+		(nombre, stock, precio, provedor) VALUES
+		(#{nombre},0,#{precio},#{provedor});
+	</insert>
+	
+	<insert id="insertarProveedor"
+		parameterType="oscar.gabella.sutil.dto.Proveedor">
+		INSERT INTO proveedor
+		(cif, nombre, email, direccion, telefono) VALUES
+		(#{cif},#{nombre},#{email},#{direccion},#{telefono});
+	</insert>
+	
+	<select id="getEmpleadoDNI" resultType="oscar.gabella.sutil.dto.Empleado">
+		SELECT * FROM empleado
+		where dni=#{dni}
+	</select>
+	
+	<insert id="insertarEmpleado"
+		parameterType="oscar.gabella.sutil.dto.Empleado">
+		INSERT INTO empleado
+		(dni, nombre, nomina, fechaContratacion, cargo, contrasena) VALUES
+		(#{dni},#{nombre},#{nomina},curdate(),#{cargo},#{contrasena});
+	</insert>
+	<delete id="eliminarEmpleado"
+		parameterType="oscar.gabella.sutil.dto.Empleado">
+		DELETE FROM empleado
+		WHERE dni=#{dni}
+	</delete>
+	
 
 </mapper>

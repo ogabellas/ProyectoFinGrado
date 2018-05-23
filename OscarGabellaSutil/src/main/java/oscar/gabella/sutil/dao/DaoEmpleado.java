@@ -10,6 +10,7 @@ import oscar.gabella.sutil.dto.Empleado;
 import oscar.gabella.sutil.dto.LineaCompra;
 import oscar.gabella.sutil.dto.Pedido;
 import oscar.gabella.sutil.dto.Producto;
+import oscar.gabella.sutil.dto.*;
 
 public interface DaoEmpleado {
 	
@@ -44,4 +45,28 @@ public interface DaoEmpleado {
 	public int modificarCompra(Compra compra);	
 	
 	public void insertPedido(Pedido pedido);	
+	
+	public List<Pedido> recuperarPedidos(Pedido pedido);
+	
+	public List<Pedido> consultarPedido(Pedido pedido);
+	
+	public void modificarPedido(Pedido pedido);
+	
+	public void modificarCantidadPedido(Pedido pedido);
+	
+	public void recibirPedido(Pedido pedido);
+	
+	public List<Proveedor> getProveedores();
+	
+	public void insertarProducto(Producto producto);
+	
+	public void insertarProveedor(Proveedor proveedor);
+	
+	public List<Empleado> getEmpleadoDNI(Empleado empleado);
+	
+	public void insertarEmpleado(Empleado empleado);
+	
+	public void eliminarEmpleado(Empleado empleado);
+	
+	
 }

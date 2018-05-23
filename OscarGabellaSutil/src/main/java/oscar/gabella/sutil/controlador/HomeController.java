@@ -86,8 +86,11 @@ public class HomeController {
 				redireccion = "cajero";
 				break;
 			case 1: redireccion = "administrador";
+					model.addAttribute("pantalla", "producto");
 				break;
 			case 2 : redireccion = "gerente";
+					model.addAttribute("pantalla", "empleadoAlta");
+					break;
 			}
 		}//TODO comprobar login del resto de opciones
 		else {
