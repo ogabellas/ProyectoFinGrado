@@ -110,6 +110,46 @@
 								width="250px">
 						</div>
 					</c:if>
+					
+					<!-------------     si es balance    ---------------> 
+					<c:if
+						test="${pantalla=='balance'}">
+						<h1>Balance</h1>
+						<div id="formular">
+							<c:out value="${balance}" /><br>
+							<c:out value="${balanceMes}" /><br>
+						</div>
+						<div id="imagenAlta">
+							<img id="imagen" alt="logo"
+								src="<c:url value="/resources/imagenes/altaCliente.png" />"
+								width="250px">
+						</div>
+					</c:if>
+					
+					<!-------------     si es productos estrella    ---------------> 
+					<c:if
+						test="${pantalla=='estrella'}">
+						<h1>Productos más vendidos</h1>
+						<table class="tabla" id="listaProd">
+							<thead>
+								<th>Producto</th>
+								<th>Total</th>
+							</thead>
+							<tbody id="listaLineas">
+								<c:forEach items="${productoEstrella }" var="linea">
+									<tr>
+										<td><c:out value="${linea.nomProducto}"></c:out></td>
+										<td><c:out value="${linea.suma}"></c:out></td>
+									<tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<div id="imagenAlta">
+							<img id="imagen" alt="logo"
+								src="<c:url value="/resources/imagenes/solicitarProd.png" />"
+								width="250px">
+						</div>
+					</c:if>
 
 				</td>
 			</tr>

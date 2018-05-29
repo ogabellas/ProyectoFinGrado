@@ -7,7 +7,7 @@ Ext.onReady(function() {
 	agregar();
 	var panelCriterios = new Ext.FormPanel({
 		id : 'formPanelCriteriosDocumentos',
-		//		title			: "Prueba",
+		title: "APROBAR PEDIDO",
 		method : 'POST',
 		width : 752,
 		//		autoWidth		: true,

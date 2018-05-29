@@ -59,7 +59,7 @@
 		SELECT * FROM compra order by codCompra desc limit 1;
 	</select>
 	<select id="buscarDNI" resultType="oscar.gabella.sutil.dto.Cliente">
-		SELECT * FROM cliente where codCliente=#{codCliente};
+		SELECT * FROM cliente where dni=#{dni};
 	</select>
 	
 	<select id="buscarPedido" resultType="oscar.gabella.sutil.dto.LineaCompra">
@@ -121,6 +121,14 @@
 	<select id="getEmpleadoDNI" resultType="oscar.gabella.sutil.dto.Empleado">
 		SELECT * FROM empleado
 		where dni=#{dni}
+	</select>
+	
+	<select id="productosEstrellas" resultType="oscar.gabella.sutil.dto.ProductoEstrella">
+		SELECT codProducto,sum(cantidad) as suma FROM lineacompra GROUP BY codProducto ORDER by suma desc
+	</select>
+	
+	<select id="balance" resultType="Double">
+		SELECT SUM(total) FROM compra WHERE fecha >= #{fecha}
 	</select>
 	
 	<insert id="insertarEmpleado"

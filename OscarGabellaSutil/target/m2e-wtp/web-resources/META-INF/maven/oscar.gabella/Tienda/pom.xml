@@ -99,7 +99,72 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
-
+		
+		<!-- Dependencias poi -->
+	<!-- Dependencias para POI -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+			<version>3.7</version>
+			<exclusions>
+				<exclusion>
+					<groupId>stax</groupId>
+					<artifactId>stax-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.geronimo.specs</groupId>
+					<artifactId>geronimo-stax-api_1.0_spec</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-scratchpad</artifactId>
+			<version>3.7</version>
+		</dependency>	
+				<dependency>
+			<groupId>commons-logging</groupId>
+  			<artifactId>commons-logging</artifactId>		
+			<version>1.0.4</version>
+		</dependency>
+			<!-- Librerias extra pdf -->
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+			<exclusions>
+				<exclusion>
+					<groupId>bouncycastle</groupId>
+					<artifactId>bcmail-jdk14</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>bouncycastle</groupId>
+					<artifactId>bcprov-jdk14</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.bouncycastle</groupId>
+					<artifactId>bctsp-jdk14</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Fin librerias extra pdf --> 
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-io -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>1.3.2</version>
+</dependency>
+		
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
@@ -156,8 +221,14 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
-			<scope>test</scope>
+	<scope>test</scope>
 		</dependency>        
+
+    <dependency> 
+      <groupId>net.sf.jasperreports</groupId> 
+       <artifactId>jasperreports</artifactId> 
+       <version>5.6.0</version> 
+     </dependency>
 	</dependencies>
     <build>
         <plugins>

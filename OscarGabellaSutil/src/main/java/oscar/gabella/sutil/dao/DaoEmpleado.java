@@ -70,5 +70,9 @@ public interface DaoEmpleado {
 	
 	public void modificarStockProducto(Producto producto);
 	
+	public List<ProductoEstrella> productosEstrellas();
+	
+	public Double balance(String fecha);
+	
 	
 }

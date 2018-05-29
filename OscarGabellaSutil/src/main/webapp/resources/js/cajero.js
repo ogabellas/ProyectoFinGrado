@@ -141,7 +141,7 @@ $(function(){
 						$("#mensajeCompra").html("Pedido realizaco correctamente");
 						dni.value="";
 						$("#mensajeDNI").html("Introduzca DNI del cliente");
-						alert("Pedido realizado correctamente");						
+						$("#formularCompra").submit();					
 					} else {
 						alert("Dni no válido");
 					}

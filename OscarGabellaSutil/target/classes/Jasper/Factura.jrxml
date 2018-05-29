@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Factura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9120620d-df78-4bd8-9b4d-1ef713a29202">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1" uuid="45ce69d8-7dd2-4b55-9ea3-20d4642e2563">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="cantidad" class="java.lang.Integer">
+			<fieldDescription><![CDATA[cantidad]]></fieldDescription>
+		</field>
+		<field name="codCompra" class="java.lang.Integer">
+			<fieldDescription><![CDATA[codCompra]]></fieldDescription>
+		</field>
+		<field name="codLinea" class="java.lang.Integer">
+			<fieldDescription><![CDATA[codLinea]]></fieldDescription>
+		</field>
+		<field name="codProducto" class="java.lang.Integer">
+			<fieldDescription><![CDATA[codProducto]]></fieldDescription>
+		</field>
+		<field name="nombreProducto" class="java.lang.String">
+			<fieldDescription><![CDATA[nombreProducto]]></fieldDescription>
+		</field>
+		<field name="total" class="java.lang.Double">
+			<fieldDescription><![CDATA[total]]></fieldDescription>
+		</field>
+		<field name="precio" class="java.lang.Double">
+			<fieldDescription><![CDATA[precio]]></fieldDescription>
+		</field>
+	</subDataset>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="codCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[codCliente]]></fieldDescription>
+	</field>
+	<field name="codEmpleado" class="java.lang.String">
+		<fieldDescription><![CDATA[codEmpleado]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.util.Date">
+		<fieldDescription><![CDATA[fecha]]></fieldDescription>
+	</field>
+	<field name="lineas" class="java.util.List">
+		<fieldDescription><![CDATA[lineas]]></fieldDescription>
+	</field>
+	<field name="nombreCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[nombreCliente]]></fieldDescription>
+	</field>
+	<field name="nombreEmpleado" class="java.lang.String">
+		<fieldDescription><![CDATA[nombreEmpleado]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.String">
+		<fieldDescription><![CDATA[total]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="206" y="12" width="100" height="20" uuid="2c016c9a-1dfe-4dce-9d5f-4312e779e2ff"/>
+				<text><![CDATA[FACTURA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="17" y="5" width="100" height="20" uuid="34feebea-64f7-4f78-9d59-f06c542fa246"/>
+				<textFieldExpression><![CDATA[$F{codCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="8" width="100" height="20" uuid="afa63850-c0c8-4d13-b303-d9e79d6e1ae7"/>
+				<textFieldExpression><![CDATA[$F{nombreCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="245" y="4" width="100" height="20" uuid="313542b8-62b0-40b1-aac6-b7085a0f749b"/>
+				<textFieldExpression><![CDATA[$F{codEmpleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="5" width="100" height="20" uuid="85489eb6-1801-4a92-8e83-c0f0dff63a45"/>
+				<textFieldExpression><![CDATA[$F{nombreEmpleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="5" width="87" height="20" uuid="24eec60e-8f35-41f2-a948-135062c7544a"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="15" y="2" width="100" height="20" uuid="81a322ee-7b86-455e-938a-a13856179cea"/>
+				<text><![CDATA[cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="2" width="100" height="20" uuid="d889c70f-c095-4cab-91ad-ae185f62ffa9"/>
+				<text><![CDATA[nombreProducto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="2" width="100" height="20" uuid="bea5fa30-d250-4c73-ae10-5e5c59b20116"/>
+				<text><![CDATA[precio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="2" width="100" height="20" uuid="7830f339-5695-4fa4-b658-4cf4a1532591"/>
+				<text><![CDATA[total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<componentElement>
+				<reportElement x="0" y="11" width="555" height="33" uuid="a1d40dce-895d-4bcd-94db-f42adceaaa50"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1" uuid="68db8b4c-a908-4742-a1e5-33f160e92086">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{lineas})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="33" width="555">
+						<textField>
+							<reportElement x="15" y="4" width="100" height="20" uuid="0a6f64e5-aec9-47d5-b34c-9923352cdc3b"/>
+							<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="144" y="7" width="100" height="20" uuid="9c6c0d2b-7962-4c23-a887-8fdde7254a1d"/>
+							<textFieldExpression><![CDATA[$F{nombreProducto}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="272" y="4" width="100" height="20" uuid="18836204-dd0b-49e3-89f9-8a5083371c5b"/>
+							<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="415" y="3" width="100" height="20" uuid="a9b08924-2be9-49b0-b60e-09c27fd17cc2"/>
+							<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="415" y="12" width="100" height="20" uuid="5cfcf16f-3a8f-4da7-b679-9e15eea67268"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

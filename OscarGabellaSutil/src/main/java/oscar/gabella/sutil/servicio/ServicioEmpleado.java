@@ -79,8 +79,9 @@ public class ServicioEmpleado {
 		String dni="";
 		Cliente cliente = new Cliente();
 		cliente.setCodCliente(c);
+		cliente.setDni(c+"");
 		cliente = daoEmpleado.buscarDNI(cliente);
-		dni = cliente.getCodCliente()+"";
+		dni = cliente.getDni()+"";
 		return dni;
 	}
 	

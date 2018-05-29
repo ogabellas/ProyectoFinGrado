@@ -1,11 +1,14 @@
 package oscar.gabella.sutil.controlador;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -20,12 +23,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 import oscar.gabella.sutil.dao.DaoEmpleado;
 import oscar.gabella.sutil.dto.Cliente;
 import oscar.gabella.sutil.dto.Compra;
 import oscar.gabella.sutil.dto.Empleado;
 import oscar.gabella.sutil.dto.EmpleadoSesion;
+import oscar.gabella.sutil.dto.Factura;
 import oscar.gabella.sutil.dto.LineaCompra;
 import oscar.gabella.sutil.dto.Pedido;
 import oscar.gabella.sutil.dto.Producto;
@@ -411,11 +423,12 @@ public class HomeController {
 		model.addAttribute("lineas", lineasPedidoActualizadas);
 		empleadoSesion.setLineasCompra(lineasPedidoActualizadas);
 		sesion.setAttribute("empleadoSesion",empleadoSesion);
+		
 		return lineasPedidoActualizadas;
 	}
 	@RequestMapping(value = "/realizarCompra", method = RequestMethod.POST)
 	@ResponseBody
-	public String realizarCompra( Model model,HttpSession sesion,@RequestParam("cliente") String cliente) {
+	public String realizarCompra( Model model,HttpSession sesion,@RequestParam("cliente") String cliente,HttpServletResponse response) {
 		
 		EmpleadoSesion empleadoSesion = (EmpleadoSesion) sesion.getAttribute("empleadoSesion");
 		List<LineaCompra> lineasExistentes = new ArrayList<LineaCompra>();
@@ -432,9 +445,6 @@ public class HomeController {
 			if(!resultado.equals("mal")) {
 				empleadoSesion.setCliente(c);
 				servicioEmpleado.realizarCompra(empleadoSesion);
-				List<LineaCompra> lineasPedidoActualizadas = new ArrayList<LineaCompra>();
-				model.addAttribute("lineas", lineasPedidoActualizadas);
-				empleadoSesion.setLineasCompra(lineasPedidoActualizadas);
 				sesion.setAttribute("empleadoSesion",empleadoSesion);			
 			}
 			else {
@@ -450,6 +460,12 @@ public class HomeController {
 		String resultado="mal";
 		try {
 			resultado = servicioEmpleado.buscarDNI(Integer.parseInt(dni));
+			Cliente c = new Cliente();
+			c.setDni(resultado);
+			c = servicioEmpleado.getDaoEmpleado().buscarDNI(c);
+			EmpleadoSesion empleadoSesion = (EmpleadoSesion) sesion.getAttribute("empleadoSesion");
+			empleadoSesion.setCliente(c);
+			sesion.setAttribute("empleadoSesion",empleadoSesion);
 			
 		} catch (Exception e) {
 		}
@@ -464,6 +480,68 @@ public class HomeController {
 
 	public void setServicioEmpleado(ServicioEmpleado servicioEmpleado) {
 		this.servicioEmpleado = servicioEmpleado;
+	}
+	private void realizarPDF(HttpServletResponse response, Factura factura) {
+		
+		List<Factura> facturas= new ArrayList<Factura>();
+		facturas.add(factura);
+		
+		//////////////////////////////////
+		InputStream jasperReport = HomeController.class.getClassLoader().getResourceAsStream("/Jasper/Factura.jasper");
+		JasperPrint jasperPrint;
+		try {
+			JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(facturas);
+
+			jasperPrint  = JasperFillManager.fillReport(jasperReport, null, data);
+			jasperPrint.setProperty("net.sf.jasperreports.awt.ignore.missing.font",
+					"true"); 
+			JasperExportManager.exportReportToPdfFile(jasperPrint,"Factura.pdf");
+			
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			JRPdfExporter exporter = new JRPdfExporter();
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
+			exporter.setParameter(JRExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, "Factura.pdf");
+			exporter.exportReport();
+			JasperExportManager.exportReportToPdfFile(jasperPrint,"Factura.pdf");
+//			org.apache.commons.io.IOUtils.write(baos.toByteArray(), response.getOutputStream());
+	        response.setDateHeader("Expires", -1);
+	        response.setContentType("application/pdf");
+	        response.setContentLength(baos.toByteArray().length);
+	        response.getOutputStream().write(baos.toByteArray());
+//			response.flushBuffer();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value = "/envio", method = RequestMethod.POST)
+	public void pdf( Model model,HttpServletResponse response,HttpSession sesion) {
+		logger.info("Inicio Realizar PDF");
+		EmpleadoSesion empleadoSesion = (EmpleadoSesion) sesion.getAttribute("empleadoSesion");
+		List<LineaCompra> lineas = new ArrayList<LineaCompra>();
+		lineas=empleadoSesion.getLineasCompra();
+
+		Factura factura = new Factura();
+		factura.setLineas(lineas);
+		factura.setCodCliente(empleadoSesion.getCliente().getDni());
+		factura.setCodEmpleado(empleadoSesion.getEmpleado().getCodEmpleado()+"");
+		factura.setFecha(new Date());
+		factura.setNombreCliente(empleadoSesion.getCliente().getNombre());
+		factura.setNombreEmpleado(empleadoSesion.getEmpleado().getNombre());
+		Double total=0d;
+		for(LineaCompra linea:empleadoSesion.getLineasCompra()) {
+			total+=linea.getTotal();
+		}
+		factura.setTotal(total+"€");
+		
+		realizarPDF(response, factura);
+		List<LineaCompra> lineasPedidoActualizadas = new ArrayList<LineaCompra>();
+		model.addAttribute("lineas", lineasPedidoActualizadas);
+		empleadoSesion.setLineasCompra(lineasPedidoActualizadas);
+		sesion.setAttribute("empleadoSesion",empleadoSesion);
 	}
 	
 }

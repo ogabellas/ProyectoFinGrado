@@ -42,7 +42,7 @@
 <!-------------     si es venta    --------------->
 					<c:if test="${pantalla=='venta'}">
 						<h1>Venta de productos</h1>
-						<form  action="" method="post" id="formularCompra">
+						<form  action="envio" method="post" id="formularCompra">
 							<fieldset id="formulario">
 								<legend> Producto a comprar</legend>
 								<div class="inputs">
@@ -74,6 +74,9 @@
 									<tr>
 											<td class="boton" id="realizarCompra">Finalizar Compra</td>
 											<td class="boton" id="vaciarLineaPedido">Vaciar Lineas</td>
+									</tr>
+									<tr id="ocultar">
+											<td colspan="2"><input type="submit" value="Enviar"></></td>
 									</tr>
 								</table>
 							</fieldset>
